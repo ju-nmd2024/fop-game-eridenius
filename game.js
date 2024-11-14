@@ -17,52 +17,43 @@ let bombSpeed = 1;
 let bombAcceleration = 1.02;
 let bombCloudScale = 1.0;
 
-
-
 //game state
 let gameState = true;
 
 //function for deathscreen
 function deathScreen(bombCloudScale) {
+  scale(bombCloudScale);
 
-scale(bombCloudScale);
+  //scale when small
+  translate(50, 10);
 
-//scale when small
-translate(50, 10);
+  push();
+  fill(100, 100, 100);
+  rect(-290, 400, 250, 450);
+  ellipse(-290, 300, 300, 300);
+  ellipse(-100, 300, 250, 250);
+  ellipse(-170, 180, 200, 150);
+  fill(125, 125, 125);
+  ellipse(-50, 345, 157, 220);
+  pop();
 
+  scale(0.75);
+  translate(-50, 100);
+  push();
+  fill(125, 125, 125);
+  rect(-290, 400, 250, 600);
+  ellipse(-290, 350, 300, 300);
+  ellipse(-100, 300, 250, 250);
+  ellipse(-170, 180, 200, 150);
+  ellipse(-50, 350, 157, 220);
+  pop();
 
-
-    push();
-    fill(100, 100,100);
-    rect(-290, 400, 250, 450);
-    ellipse(-290, 300, 300, 300);
-    ellipse(-100, 300, 250, 250);
-    ellipse(-170, 180, 200, 150);
-    fill(125,125,125);
-    ellipse(-50, 345, 157, 220);
-    pop();
-
-    scale(0.75);
-    translate(-50,100);
-    push();
-    fill(125, 125, 125);
-    rect(-290, 400, 250, 600);
-    ellipse(-290, 350, 300, 300);
-    ellipse(-100, 300, 250, 250);
-    ellipse(-170, 180, 200, 150);
-    ellipse(-50, 350, 157, 220);
-    pop();
-
-  
-    rotate(PI);
-    translate(305, -900);
-    push();
-    fill(55,50,50);
-    arc(-150, 400, 350, 100,0, PI);
-    pop();
-
-  
-    
+  rotate(PI);
+  translate(305, -900);
+  push();
+  fill(55, 50, 50);
+  arc(-150, 400, 350, 100, 0, PI);
+  pop();
 }
 
 //function for background
@@ -200,11 +191,8 @@ function city(cityX, cityY) {
 }
 
 function draw() {
-
-
   //checks gamestate
   if (gameState) {
-   
     //bomb falling
     bombY += bombSpeed;
 
@@ -221,26 +209,22 @@ function draw() {
 
     //bomb slows while clicking
     if (mouseIsPressed) {
-        bombAcceleration = 0.98;
-        bombSpeed = 0.1;
+      bombAcceleration = 0.98;
+      bombSpeed = 0.1;
+    } else {
+      bombAcceleration = 1.05;
     }
 
-    else {
-        bombAcceleration =1.05;
-    }
-
-//losing conditions
-    if (bombY > 450 && bombSpeed > 1.2) {
+    //losing conditions
+    if (bombY > 350 && bombSpeed > 1.2) {
       console.log("You lose");
       gameState = false;
       deathScreen(bombCloudScale);
     }
-//winning conditions
+    //winning conditions
     if (bombY > 450 && bombSpeed < 1.2) {
       console.log("You win");
       gameState = false;
     }
-  } 
-}   
-
- 
+  }
+}
