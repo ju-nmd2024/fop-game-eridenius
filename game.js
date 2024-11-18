@@ -3,6 +3,7 @@
 function setup() {
   createCanvas(300, 600);
   background(177, 207, 222);
+  textSize(32);
 }
 
 //position variebles
@@ -208,18 +209,22 @@ function draw() {
     clouds(-20, 10);
 
     //bomb slows while clicking
-    if (mouseIsPressed) {
-      bombAcceleration = 0.98;
-      bombSpeed = 0.1;
+    if (keyIsPressed) {
+      if (key === " ") {
+        bombAcceleration = 0.98;
+        bombSpeed = 0.1;
+      }
     } else {
       bombAcceleration = 1.05;
     }
 
     //losing conditions
-    if (bombY > 350 && bombSpeed > 1.2) {
+    if (bombY > 450 && bombSpeed > 1.2) {
       console.log("You lose");
+      console.log("Press R to restart");
+
+      deathScreen();
       gameState = false;
-      deathScreen(bombCloudScale);
     }
     //winning conditions
     if (bombY > 450 && bombSpeed < 1.2) {
@@ -227,4 +232,10 @@ function draw() {
       gameState = false;
     }
   }
+}
+
+//restart option when winning/losing
+
+if (gameState == false) {
+  console.log("Press R to restart");
 }
