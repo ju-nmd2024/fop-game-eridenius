@@ -16,9 +16,25 @@ let cloudsY = 30;
 let bombSpeed = 1;
 let bombAcceleration = 1.02;
 let bombCloudScale = 1.0;
+let startScreenX = 0;
 
-//game state
-let gameState = true;
+//game state 0 = startscreen 1 = gameplaying 2 = game win/lose
+let gameState = 0;
+
+//function for start screen
+function startScreen(startScreenX, startScreenY) {
+  translate(startScreenX, startScreenY);
+  push();
+  textSize(50);
+  fill(0, 0, 0);
+  text("Don't Nuke It press R to play", 1, 150);
+  textSize(25);
+  text("press R to play", 75, 190);
+  bomb(0, 150, 0.5);
+  pop();
+}
+
+//teleporting starting screen when game is played
 
 //function for deathscreen
 function deathScreen(bombCloudScale) {
@@ -192,7 +208,12 @@ function city(cityX, cityY) {
 
 function draw() {
   //checks gamestate and runs the code for the game
-  if (gameState) {
+
+  if (gameState == 0) {
+    startScreen();
+  }
+
+  if (gameState == 1) {
     //bomb falling
     bombY += bombSpeed;
 
@@ -226,12 +247,12 @@ function draw() {
       text("Press R to restart", -450, 125);
 
       deathScreen();
-      gameState = false;
+      gameState = 2;
     }
     //winning conditions
     if (bombY > 450 && bombSpeed < 1.5) {
       console.log("You win");
-      gameState = false;
+      gameState = 2;
       fill(50, 200, 50);
       textSize(70);
       text("You win!", -290, 30);
@@ -240,12 +261,15 @@ function draw() {
   }
 
   //restart option when winning/losing
-  if (keyIsPressed) {
-    if (key === "r") {
-      console.log("Restarting");
-      bombY = -180;
-      gameState = true;
-      bombAcceleration = 1;
+  if (gameState == 2 || gameState == 0) {
+    if (keyIsPressed) {
+      if (key === "r") {
+        console.log("Restarting");
+        bombY = -180;
+        gameState = 1;
+        bombAcceleration = 1;
+      }
     }
   }
+  console.log(gameState);
 }
