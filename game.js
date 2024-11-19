@@ -238,7 +238,7 @@ function draw() {
     }
 
     //losing conditions
-    if (bombY > 450 && bombSpeed > 1.5) {
+    if (bombY > 450 && bombSpeed > 2) {
       console.log("You lose");
       console.log("Press R to restart");
       fill(0, 0, 0);
@@ -250,7 +250,7 @@ function draw() {
       gameState = 2;
     }
     //winning conditions
-    if (bombY > 450 && bombSpeed < 1.5) {
+    if (bombY > 450 && bombSpeed < 2) {
       console.log("You win");
       gameState = 2;
       fill(50, 200, 50);
@@ -260,7 +260,7 @@ function draw() {
     }
   }
 
-  //restart option when winning/losing
+  //restart option when winning/losing or in the start screen
   if (gameState == 2 || gameState == 0) {
     if (keyIsPressed) {
       if (key === "r") {
@@ -271,5 +271,4 @@ function draw() {
       }
     }
   }
-  console.log(gameState);
 }
