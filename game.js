@@ -16,7 +16,6 @@ let cloudsY = 30;
 let bombSpeed = 1;
 let bombAcceleration = 1.02;
 let bombCloudScale = 1.0;
-let bombThrust = -1;
 
 //game state
 let gameState = true;
@@ -192,7 +191,7 @@ function city(cityX, cityY) {
 }
 
 function draw() {
-  //checks gamestate
+  //checks gamestate and runs the code for the game
   if (gameState) {
     //bomb falling
     bombY += bombSpeed;
@@ -218,7 +217,7 @@ function draw() {
     }
 
     //losing conditions
-    if (bombY > 450 && bombSpeed > 1.2) {
+    if (bombY > 450 && bombSpeed > 1.5) {
       console.log("You lose");
       console.log("Press R to restart");
       fill(0, 0, 0);
@@ -230,7 +229,7 @@ function draw() {
       gameState = false;
     }
     //winning conditions
-    if (bombY > 450 && bombSpeed < 1.2) {
+    if (bombY > 450 && bombSpeed < 1.5) {
       console.log("You win");
       gameState = false;
       fill(50, 200, 50);
