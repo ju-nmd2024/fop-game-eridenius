@@ -3,7 +3,6 @@
 function setup() {
   createCanvas(300, 600);
   background(177, 207, 222);
-  textSize(32);
 }
 
 //position variebles
@@ -17,6 +16,7 @@ let cloudsY = 30;
 let bombSpeed = 1;
 let bombAcceleration = 1.02;
 let bombCloudScale = 1.0;
+let bombThrust = -1;
 
 //game state
 let gameState = true;
@@ -198,7 +198,7 @@ function draw() {
     bombY += bombSpeed;
 
     //bomb accelartion
-    bombSpeed *= bombAcceleration;
+    bombSpeed += bombAcceleration;
 
     clear();
 
@@ -211,8 +211,7 @@ function draw() {
     //bomb slows while clicking
     if (keyIsPressed) {
       if (key === " ") {
-        bombAcceleration = 0.98;
-        bombSpeed = 0.1;
+        bombSpeed = -6;
       }
     } else {
       bombAcceleration = 1.05;
@@ -222,6 +221,10 @@ function draw() {
     if (bombY > 450 && bombSpeed > 1.2) {
       console.log("You lose");
       console.log("Press R to restart");
+      fill(0, 0, 0);
+      textSize(70);
+      text("You lose!", -290, 30);
+      text("Press R to restart", -450, 125);
 
       deathScreen();
       gameState = false;
@@ -230,12 +233,20 @@ function draw() {
     if (bombY > 450 && bombSpeed < 1.2) {
       console.log("You win");
       gameState = false;
+      fill(50, 200, 50);
+      textSize(70);
+      text("You win!", -290, 30);
+      text("Press R to restart", -450, 125);
     }
   }
-}
 
-//restart option when winning/losing
-
-if (gameState == false) {
-  console.log("Press R to restart");
+  //restart option when winning/losing
+  if (keyIsPressed) {
+    if (key === "r") {
+      console.log("Restarting");
+      bombY = -180;
+      gameState = true;
+      bombAcceleration = 1;
+    }
+  }
 }
