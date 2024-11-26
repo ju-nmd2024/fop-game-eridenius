@@ -13,7 +13,7 @@ let cityX = 20;
 let cityY = 20;
 let cloudsX = 30;
 let cloudsY = 30;
-let bombSpeed = 1;
+let bombSpeed = 0.5;
 let bombAcceleration = 1.02;
 let bombCloudScale = 1.0;
 let startScreenX = 0;
@@ -238,7 +238,7 @@ function draw() {
     }
 
     //losing conditions
-    if (bombY > 450 && bombSpeed > 2) {
+    if (bombY > 450 && bombSpeed > 10) {
       console.log("You lose");
       console.log("Press R to restart");
       fill(0, 0, 0);
@@ -249,8 +249,9 @@ function draw() {
       deathScreen();
       gameState = 2;
     }
+    console.log(bombSpeed);
     //winning conditions
-    if (bombY > 450 && bombSpeed < 2) {
+    if (bombY > 450 && bombSpeed < 10) {
       console.log("You win");
       gameState = 2;
       fill(50, 200, 50);
